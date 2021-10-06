@@ -3,6 +3,8 @@ import os
 import requests
 import csv
 
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
 
 def get_stats(player):
     # average apm
@@ -44,8 +46,8 @@ def compile_stats(username):
         request_rating = usable_response["data"]["user"]["league"]["rating"]
         # standing = usable_response["data"]["user"]["league"]["standing"]
         # gametime = usable_response["data"]
-
-    entries = os.listdir("replays/")
+    replay_folder_path = current_dir + "/replays"
+    entries = os.listdir(replay_folder_path)
     for replay_file in entries:
         f = open("replays/" + str(replay_file))
         usable_f = json.load(f)
@@ -78,8 +80,8 @@ def compile_stats(username):
         apm2, pps2, vs2, a_apm2, a_pps2, a_vs2 = get_stats(player2)
 
         exists = os.path.isfile("data.csv")
-
-        with open("data.csv", "a", newline="") as f:
+        csv_path = current_dir + "/data.csv"
+        with open(csv_path, "a", newline="") as f:
             writer = csv.writer(f)
             header = [
                 "Timestamp",
@@ -114,4 +116,5 @@ def compile_stats(username):
             writer.writerow(csv_data)
 
         os.remove("replays/" + str(replay_file))
+
     return 0
