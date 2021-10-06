@@ -1,3 +1,5 @@
+username = ""  ## Must enter TETR.IO username here and not in capitals. Eg.) username = "booyah"
+
 import os
 from main import get_stats, compile_stats
 import subprocess as sp
@@ -13,9 +15,6 @@ except ModuleNotFoundError:
 
 font = ("HUN", 36)
 current_dir = os.path.dirname(os.path.realpath(__file__))
-
-
-username = "booyah"  ## Must enter TETR.IO username here and not in capitals. Eg.) username = "booyah"
 
 
 def csv():
@@ -63,7 +62,7 @@ if gui:
         if event == "RUN":
             t1 = threading.Thread(target=compile_stats, args=[username])
             t1.start()
-            window.Element("_TBOX_").Update("RUN SUCCESSFULLY!")
+            window.Element("_TBOX_").Update("COMPLETED")
 
         if event == "OPEN CSV":
             t2 = threading.Thread(target=csv)
@@ -82,7 +81,6 @@ if gui:
 
     window.close()
 else:
-    print("Continuing without PySimpleGUI")
     text = "Type R to run the program \nType C to open CSV file \nType P to open project folder \nType Q to quit"
     print(text)
     run = True
