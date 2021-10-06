@@ -79,6 +79,9 @@ def compile_stats(username):
         apm1, pps1, vs1, a_apm1, a_pps1, a_vs1 = get_stats(player1)
         apm2, pps2, vs2, a_apm2, a_pps2, a_vs2 = get_stats(player2)
 
+        comments = ""
+        comments = input(f"add comment (Versus {opponent})> ")
+
         exists = os.path.isfile("data.csv")
         csv_path = current_dir + "/data.csv"
         with open(csv_path, "a", newline="") as f:
@@ -96,6 +99,7 @@ def compile_stats(username):
                 "Vs2",
                 "rating",
                 "gametype",
+                "comments",
             ]
             csv_data = [
                 timestamp,
@@ -110,6 +114,7 @@ def compile_stats(username):
                 vs2,
                 request_rating,
                 gametype,
+                comments,
             ]
             if not exists:
                 writer.writerow(header)
