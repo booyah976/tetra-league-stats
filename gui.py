@@ -1,5 +1,10 @@
 username = ""  ## Must enter TETR.IO username here and not in capitals. Eg.) username = "booyah"
 
+if username == "":
+    username = input(
+        "Enter TETR.IO name (change the first line of gui.py if you dont want this message to show) > "
+    )
+
 import os
 from main import get_stats, compile_stats
 import subprocess as sp
@@ -39,12 +44,10 @@ if gui:
             sg.Text("          "),
             sg.Button("RUN", button_color=(sg.GREENS[0]), size=(12, 2)),
         ],
-        [sg.FileBrowse(button_text="Browse")],
         [
             sg.Button("OPEN PROJECT"),
             sg.Button("OPEN CSV"),
-            sg.Text("                         "),
-            sg.Button("EXIT", button_color=("red"), size=(5, 2)),
+            sg.Button("EXIT", button_color=("red")),
         ],
         [sg.Text("PRESS RUN TO RUN THE PROGRAM", text_color="black", key="_TBOX_")],
     ]
