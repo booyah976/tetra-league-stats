@@ -11,5 +11,3 @@ Gets and stores tetra league game stats (score, APM, PPS, VS) from downloaded re
 <li>After a considerable amount of replays are downloaded, run gui.py
 <li>If not using the GUI, you can add comments for every replay
 <li>The data is stored as a csv in data.csv and all the replays in the replays folder are deleted
-
-Note: Browse button does not work, im to lazy to remove it
