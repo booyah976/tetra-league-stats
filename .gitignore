@@ -2,3 +2,4 @@ __pycache__/
 *.py[cod]
 data.csv
 gui2.py
+saved_replays
