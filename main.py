@@ -119,8 +119,11 @@ def compile_stats(username):
             if not exists:
                 writer.writerow(header)
             writer.writerow(csv_data)
-    try:
-        os.rename("replays/" + str(replay_file), "saved_replays/" + str(replay_file))
-    except FileNotFoundError:
-        os.remove("replays/" + str(replay_file))
+        try:
+            os.rename(
+                "replays/" + str(replay_file), "saved_replays/" + str(replay_file)
+            )
+            os.remove("replays/" + str(replay_file))
+        except FileNotFoundError:
+            pass
     return 0

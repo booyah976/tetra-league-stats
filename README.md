@@ -21,4 +21,4 @@ Gets and stores tetra league game stats (score, APM, PPS, VS) from downloaded re
 <li>Optionally add a comment for a replay
 <li>Data is stored as a csv in <code>data.csv</code>
 <li>Have a mental break down because you havent improved in 6 months
-<li>Optionally create a <code>saved_replays</code> folder to stockpile on replays as the replays folder is purged every time the program is run
+<li>Optionally create a <code>saved_replays</code> folder to stockpile on replays as the <code>replays</code> folder is purged every time the program is run
