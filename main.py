@@ -2,9 +2,38 @@ import json
 import os
 import requests
 import csv
+import subprocess as sp
+import argparse
+
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
+username = ""  ## Must enter TETR.IO username here and not in capitals. Eg.) username = "booyah"
+
+
+if username == "":
+    username = input(
+        "Enter TETR.IO name (change the first line of gui.py if you dont want this message to show) > "
+    )
+username = username.lower()
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
+
+def csv_f():
+    programName = "notepad.exe"
+    fileName = current_dir + r"\data.csv"
+    sp.Popen([programName, fileName])
+
+
+def open_replays():
+    sp.Popen(r'explorer /select,"' + current_dir + '"')
+    print(r'explorer /select,"' + current_dir + '/replays"')
+
+
+def usage():
+    text = "Type R to run the program \nType C to open CSV file \nType P to open project folder \nType Q to quit"
+    print(text)
 
 def get_stats(player):
     # average apm
@@ -30,7 +59,7 @@ def get_stats(player):
     return (apm, pps, vs, a_apm, a_pps, a_vs)
 
 
-def compile_stats(username):
+def compile_stats(username, comments_bool):
     request_rating = "N/A"
     response = requests.get(f"https://ch.tetr.io/api/users/{username}")
 
@@ -80,7 +109,9 @@ def compile_stats(username):
         apm2, pps2, vs2, a_apm2, a_pps2, a_vs2 = get_stats(player2)
 
         comments = ""
-        comments = input(f"add comment (Versus {opponent})> ")
+
+        if comments_bool:
+            comments = input(f"add comment (Versus {opponent})> ")
 
         exists = os.path.isfile("data.csv")
         csv_path = current_dir + "/data.csv"
@@ -125,5 +156,20 @@ def compile_stats(username):
             )
             os.remove("replays/" + str(replay_file))
         except FileNotFoundError:
-            pass
+            os.remove("replays/" + str(replay_file))
+        except FileExistsError:
+            print(f"File {replay_file} already exists, change the file name")
     return 0
+
+parser = argparse.ArgumentParser(description='Command line arguments:\n"c": Add comments\n"nc": no comments\n"csv": open csv')
+parser.add_argument("-r", "--run", help="Choose run options (comments /no comments)", choices=["c", "nc", "csv"], type=str)
+args = parser.parse_args()
+
+if args.run == "c":
+    compile_stats(username, True)
+elif args.run == "nc":
+    compile_stats(username, False)
+elif args.run == "csv":
+    csv_f()
+else:
+    compile_stats(username, False)
